@@ -42,7 +42,8 @@
   flex-direction: column;
   width: 320px;
 }
-.main input[type="text"] {
+
+.main input[type="text"], .requestBtn {
   padding: 12px 16px;
   border: 1px solid #10a37f;
   border-radius: 4px;

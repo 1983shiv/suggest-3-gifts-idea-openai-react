@@ -22,11 +22,11 @@ const formLable = {
 };
 
 export default function Home() {
-  console.log("gif", loadingGif);
   const [loading, setLoading] = useState(false);
   const [minCost, setMinCost] = useState(40);
   const [maxCost, setMaxCost] = useState(100);
   const [gender, setGender] = useState("male");
+  const [requestAgain, setRequestAgain] = useState(true);
   const [occussion, setOccussion] = useState("Christmas");
   const [category, setCategory] = useState("golfing, business, traveling");
 
@@ -55,11 +55,17 @@ export default function Home() {
       const arr1 = data.result.split("\n\n");
       setResult(arr1);
       setLoading(false);
+      setRequestAgain(false);
     } catch (error) {
       console.error(error);
       alert(error.message);
     }
   }
+
+  const handleClickButton = (e) => {
+    e.preventDefault();
+    setRequestAgain(true);
+  };
 
   return (
     <div>
@@ -71,25 +77,31 @@ export default function Home() {
       <main className={styles.main}>
         <img src="/dog.png" className={styles.icon} />
         <h3>Get me 3 Suggestion for Gift using OpenAI</h3>
-        {result[1] && (
+        {!requestAgain && (
+          <button className={styles.requestBtn} onClick={handleClickButton}>
+            Request Again
+          </button>
+        )}
+        {!requestAgain && result[1] && (
           <div
             style={resultStyle}
             dangerouslySetInnerHTML={{ __html: result[1] }}
           />
         )}
-        {result[2] && (
+        {!requestAgain && result[2] && (
           <div
             style={resultStyle}
             dangerouslySetInnerHTML={{ __html: result[2] }}
           />
         )}
-        {result[3] && (
+        {!requestAgain && result[3] && (
           <div
             style={resultStyle}
             dangerouslySetInnerHTML={{ __html: result[3] }}
           />
         )}
-        {!loading && (
+
+        {!loading && requestAgain && (
           <form onSubmit={onSubmit}>
             <label style={formLable}>Min Price($)</label>
             <input
@@ -203,18 +215,18 @@ export default function Home() {
             <input type="submit" value="Suggest Me!" />
           </form>
         )}
+
         {loading && (
           <Bars
             height="80"
             width="80"
-            color="#4fa94d"
+            color="#10a37f"
             ariaLabel="bars-loading"
             wrapperStyle={{}}
             wrapperClass=""
             visible={true}
           />
         )}
-        {/* {loading && <img src={loadingGif.src} alt="Loading..." />} */}
       </main>
     </div>
   );
