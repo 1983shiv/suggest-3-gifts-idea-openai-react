@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
-import loadingGif from "../public/loading.gif";
+import { Bars } from "react-loader-spinner";
 
 const resultStyle = {
   backgroundColor: "#10a37f",
@@ -203,7 +203,18 @@ export default function Home() {
             <input type="submit" value="Suggest Me!" />
           </form>
         )}
-        {loading && <img src={loadingGif.src} alt="Loading..." />}
+        {loading && (
+          <Bars
+            height="80"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="bars-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
+        )}
+        {/* {loading && <img src={loadingGif.src} alt="Loading..." />} */}
       </main>
     </div>
   );
