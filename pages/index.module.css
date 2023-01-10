@@ -13,12 +13,17 @@
   font-weight: bold;
   font-style: normal;
 }
+
 .main,
 .main input {
   font-size: 16px;
   line-height: 24px;
   color: #353740;
   font-family: "ColfaxAI", Helvetica, sans-serif;
+  padding: 6px;
+}
+.main input {
+  border: 1px solid #c3c3c3;
 }
 .main {
   display: flex;
@@ -39,7 +44,6 @@
 .main form {
   display: flex;
   flex-direction: column;
-  width: 320px;
 }
 
 .main input[type="text"], .requestBtn, .main select {
