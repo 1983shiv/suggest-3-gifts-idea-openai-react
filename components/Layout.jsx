@@ -16,11 +16,11 @@ const Layout = () => {
         <link rel="icon" href="/icons8-giveaway-50-blk.png" />
       </Head>
 
-      <header className="w-full" style={headerStyle}>
+      <header className="w-full px-5" style={headerStyle}>
         <div className="container flex flex-wrap p-2 flex-row items-center">
           <Link
             href="/"
-            className="flex title-font font-medium items-center text-gray-900 mb-2 md:mb-0"
+            className="md:ml-8 flex title-font font-medium items-center text-gray-900 mb-2 md:mb-0"
           >
             <img src="./icons8-giveaway-50.png" alt="Logo" />
           </Link>
