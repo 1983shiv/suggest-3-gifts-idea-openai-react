@@ -2,6 +2,8 @@ import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
 import { Bars } from "react-loader-spinner";
+import { hobbies } from "../constants/data";
+import { festivals } from "../constants/data";
 
 const resultStyle = {
   backgroundColor: "#10a37f",
@@ -19,6 +21,7 @@ const formLable = {
   color: "#10a37f",
   fontSize: "20px",
   fontWeight: "bold",
+  marginTop: "10px",
 };
 
 export default function Home() {
@@ -28,7 +31,7 @@ export default function Home() {
   const [gender, setGender] = useState("male");
   const [requestAgain, setRequestAgain] = useState(true);
   const [occussion, setOccussion] = useState("Christmas");
-  const [category, setCategory] = useState("golfing, business, traveling");
+  const [category, setCategory] = useState([]);
 
   const [result, setResult] = useState([]);
 
@@ -65,6 +68,10 @@ export default function Home() {
   const handleClickButton = (e) => {
     e.preventDefault();
     setRequestAgain(true);
+  };
+
+  const handleMultiSelect = (e) => {
+    setCategory(Array.from(e.target.selectedOptions, (item) => item.value));
   };
 
   return (
@@ -121,7 +128,7 @@ export default function Home() {
               onChange={(e) => setMaxCost(e.target.value)}
               style={{ display: "flex", margin: "4px" }}
             />
-            <label style={formLable}>Gender</label>
+            <label style={formLable}>To whom is this for?</label>
             <label>
               <input
                 type="radio"
@@ -144,75 +151,57 @@ export default function Home() {
             <select
               value={occussion}
               onChange={(e) => setOccussion(e.target.value)}
-              style={{ display: "flex", margin: "4px", padding: "8px" }}
             >
-              <option value="Christmas">Christmas</option>
-              <option value="Holi">Holi</option>
-              <option value="Good Friday">Good Friday</option>
+              {festivals.map((festival, index) => (
+                <option key={index} value={festival}>
+                  {festival}
+                </option>
+              ))}
             </select>
-            <label style={formLable}>Select the Category</label>
-            <label>
-              <input
-                type="checkbox"
-                value="Business"
-                checked={category.includes("Business")}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setCategory([...category, e.target.value]);
-                  } else {
-                    setCategory(category.filter((o) => o !== e.target.value));
-                  }
-                }}
-              />
-              Business
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="Cricket"
-                checked={category.includes("Cricket")}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setCategory([...category, e.target.value]);
-                  } else {
-                    setCategory(category.filter((o) => o !== e.target.value));
-                  }
-                }}
-              />
-              Cricket
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="Good Friday"
-                checked={category.includes("Good Friday")}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setCategory([...category, e.target.value]);
-                  } else {
-                    setCategory(category.filter((o) => o !== e.target.value));
-                  }
-                }}
-              />
-              Golfing
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="Travelling"
-                checked={category.includes("Travelling")}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setCategory([...category, e.target.value]);
-                  } else {
-                    setCategory(category.filter((o) => o !== e.target.value));
-                  }
-                }}
-              />
-              Travelling
-            </label>
-
-            <input type="submit" value="Suggest Me!" />
+            <label style={formLable}>Select the Hobbies</label>
+            <p style={{ marginTop: "-10px", fontSize: "10px" }}>
+              Use Shift key to select multiple hobbies
+            </p>
+            <select
+              multiple={true}
+              value={category}
+              onChange={(e) => {
+                handleMultiSelect(e);
+              }}
+            >
+              {hobbies &&
+                hobbies.map((hobby, index) => (
+                  <option key={index} value={hobby}>
+                    {hobby}
+                  </option>
+                ))}
+            </select>
+            {/* <div style={{ display: "flex", flexWrap: "wrap" }}>
+              {hobbies.map((hobby, index) => (
+                <label key={index}>
+                  <input
+                    type="checkbox"
+                    value={hobby}
+                    checked={category.includes(hobby)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setCategory([...category, e.target.value]);
+                      } else {
+                        setCategory(
+                          category.filter((o) => o !== e.target.value)
+                        );
+                      }
+                    }}
+                  />
+                  {hobby}
+                </label>
+              ))}
+            </div> */}
+            <input
+              type="submit"
+              value="Suggest Me!"
+              style={{ marginTop: "10px" }}
+            />
           </form>
         )}
 
